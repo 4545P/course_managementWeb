@@ -160,7 +160,6 @@ export default {
                 },
             ],
         });
-        console.log(userStore);
 
         const handleCheckboxChange = (day) => {
             const weekArray = form.value.courseList[0].courseWeek;

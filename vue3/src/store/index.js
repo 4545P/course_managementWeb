@@ -21,7 +21,6 @@ export const useUserStore = defineStore("user", {
             this.enable = userInfo.enable;
         },
         login(userInfo) {
-            // 这里设置用户信息
             this.setUser(userInfo);
         },
         clearUser() {
