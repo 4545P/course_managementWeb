@@ -208,13 +208,12 @@ export default {
                 const response = await axios.post(url, requestData);
                 console.log(response.data);
                 tableData.value = response.data.list;
-                pagination.value.total = response.data.total; // 设置总数据量
+                pagination.value.total = response.data.total;
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
 
-        // 定义计算当前页的数据的ref
         const currentPage = computed(() => {
             const start = (pagination.value.page - 1) * pagination.value.limit;
             const end = start + pagination.value.limit;
@@ -231,7 +230,7 @@ export default {
             solve: false,
         });
 
-        // 初始化时进行一次数据获取
+        // 進網頁時自動刷新列表
         onMounted(() => {
             fetchSchedule();
         });

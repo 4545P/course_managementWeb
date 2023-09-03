@@ -60,17 +60,14 @@ export default {
         };
 
         const studentForm = () => {
-            // 在这里提交表单数据给后端API
             axios
                 .post("http://localhost:8080/student/update", form.value)
                 .then((response) => {
-                    // 处理API响应，可以显示成功或失败的消息
                     console.log("API Response:", response);
                     alert(response.data.message);
                     console.log(form);
                 })
                 .catch((error) => {
-                    // 处理API请求错误
                     console.error("API Error:", error);
                     alert("修改失敗");
                 });

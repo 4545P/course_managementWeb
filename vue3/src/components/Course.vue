@@ -165,13 +165,13 @@ export default {
             const weekArray = form.value.courseList[0].courseWeek;
 
             if (weekArray.includes(day)) {
-                // 如果数组中已经包含这个星期名称，移除它
+                // 如果數組中已經包含這個星期名稱就移除它
                 const index = weekArray.indexOf(day);
                 if (index !== -1) {
                     weekArray.splice(index, 1);
                 }
             } else {
-                // 否则，添加它
+                // 不然就添加它
                 weekArray.push(day);
             }
         };
@@ -183,16 +183,13 @@ export default {
         };
 
         const personnelForm = () => {
-            // 在这里提交表单数据给后端API
             axios
                 .post("http://localhost:8080/course/add", form.value)
                 .then((response) => {
-                    // 处理API响应，可以显示成功或失败的消息
                     console.log("API Response:", response);
                     alert(response.data.message);
                 })
                 .catch((error) => {
-                    // 处理API请求错误
                     console.error("API Error:", error);
                     alert("新增課程失敗");
                     console.log(form);

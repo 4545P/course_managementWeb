@@ -289,22 +289,20 @@ export default {
             try {
                 const response = await axios.post(url, requestData);
                 tableData.value = response.data.list;
-                pagination.value.total = response.data.total; // 设置总数据量
+                pagination.value.total = response.data.total;
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
 
-        // 定义计算当前页的数据的ref
         const currentPage = computed(() => {
             const start = (pagination.value.page - 1) * pagination.value.limit;
             const end = start + pagination.value.limit;
             return tableData.value.slice(start, end);
         });
 
-        // 定义计算排序后的列表的ref
         const sortedList = computed(() => {
-            const clonedList = [...tableData.value]; // 克隆列表数据以避免直接修改原始数据
+            const clonedList = [...tableData.value]; // 複製列表
 
             if (listQuery.value.sort === "+id") {
                 return clonedList.sort((a, b) => a.id - b.id); // 升序
@@ -312,15 +310,15 @@ export default {
                 return clonedList.sort((a, b) => b.id - a.id); // 降序
             }
 
-            return clonedList; // 默认情况
+            return clonedList; // 默認
         });
 
-        // 监听 listQuery.sort 的变化
+        // 監聽 listQuery.sort
         watch(
             () => listQuery.value.sort,
             (newVal, oldVal) => {
                 if (newVal !== oldVal) {
-                    // 触发排序
+                    // 排序
                     handleSortChange();
                 }
             }
@@ -344,14 +342,14 @@ export default {
             ],
         });
 
-        // 初始化时进行一次数据获取
+        // 進網頁時自動刷新列表
         onMounted(() => {
             fetchCourse();
         });
 
-        // 处理排序变化
+        // 處理排序
         const handleSortChange = () => {
-            // 在这里使用 sortedList.value 来获取排序后的数据
+            // sortedList.value 拿到排序後的數據
             const sortedData = sortedList.value;
             console.log(sortedData);
         };

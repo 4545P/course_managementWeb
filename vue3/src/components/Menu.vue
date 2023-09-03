@@ -55,7 +55,7 @@ const handleClose = (key: string, keyPath: string[]) => {
 };
 const router = useRouter();
 const logout = () => {
-    // 使用 Pinia 清空存储的用户信息
+    // 使用 Pinia 清空儲存的用戶資料
     const userStore = useUserStore();
     userStore.clearUser();
     router.push("/login");
@@ -63,7 +63,6 @@ const logout = () => {
 </script>
 
 <style>
-/* 添加样式来移除下划线 */
 .menu-link {
     text-decoration: none;
 }
