@@ -24,13 +24,13 @@ export const useUserStore = defineStore("user", {
             this.setUser(userInfo);
         },
         clearUser() {
-            this.role = null;
-            this.id = null;
-            this.studentId = null;
-            this.name = null;
-            this.password = null;
-            this.email = null;
-            this.enable = null;
+            this.role = '';
+            this.id = '';
+            this.studentId = '';
+            this.name = '';
+            this.password = '';
+            this.email = '';
+            this.enable = false;
         },
     },
 });

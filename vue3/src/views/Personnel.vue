@@ -7,22 +7,20 @@
             列<br />
             表
         </h1>
-
         <div class="app-container" style="width: 70vw; margin: 0 auto">
             <div class="filter-container">
                 <el-input
                     v-model="listQuery.name"
-                    placeholder="Name"
+                    placeholder="姓名"
                     style="width: 180px; height: 65px"
                     class="filter-item"
                 />
-
                 <el-button
                     type="primary"
                     round
                     style="margin-left: 12px"
                     @click="fetchPersonnel"
-                    >Search</el-button
+                    >搜尋</el-button
                 >
                 <el-button
                     type="primary"
@@ -30,10 +28,9 @@
                     style="margin-left: 12px"
                     @click="AddPersonnel"
                 >
-                    AddPersonnel
+                    新增教職人員
                 </el-button>
             </div>
-
             <div class="list-container">
                 <el-table
                     :data="sortedList"
@@ -45,17 +42,22 @@
                     <el-table-column
                         label="ID"
                         prop="id"
+                        align="center"
                         :sortable="
                             listQuery.sort === '+id' || listQuery.sort === '-id'
                         "
-                        align="center"
-                        width="80"
+                        width="80px"
                     >
                         <template #default="{ row }">
                             <span>{{ row.id }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="Name" prop="name" min-width="40px">
+                    <el-table-column 
+                        label="姓名" 
+                        prop="name" 
+                        align="center"
+                        min-width="40px"
+                    >
                         <template #default="{ row }">
                             <span class="link-type">{{ row.name }}</span>
                         </template>
@@ -63,20 +65,27 @@
                     <el-table-column
                         label="Email"
                         prop="email"
+                        align="center"
                         min-width="100px"
                     >
                         <template #default="{ row }">
                             <span class="link-type">{{ row.email }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="Role" prop="role" min-width="40px">
+                    <el-table-column 
+                        label="身份" 
+                        prop="role"
+                        align="center"
+                        min-width="40px"
+                    >
                         <template #default="{ row }">
                             <span class="link-type">{{ row.role }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column
-                        label="Enable"
+                        label="狀態"
                         prop="enable"
+                        align="center"
                         min-width="40px"
                     >
                         <template #default="{ row }">
@@ -85,11 +94,10 @@
                             }}</span>
                         </template>
                     </el-table-column>
-
                     <el-table-column
-                        label="Revise"
+                        label="操作"
                         align="center"
-                        width="250"
+                        width="250px"
                         class-name="small-padding fixed-width"
                     >
                         <template #default="{ row }">
@@ -99,7 +107,6 @@
                                 @click="UpdatePersonnel(row)"
                                 >Revise</el-button
                             >
-
                             <el-button type="danger" round>Delete</el-button>
                         </template>
                     </el-table-column>
@@ -116,7 +123,6 @@
                     </span>
                 </el-dialog>
             </div>
-
             <div class="example-pagination-block">
                 <div class="example-demonstration"></div>
                 <el-pagination
@@ -126,7 +132,6 @@
                     @current-change="handlePageChange"
                 />
             </div>
-
             <el-dialog>
                 <el-form
                     ref="dataForm"
@@ -160,12 +165,12 @@
         @close="handleUpdatePersonnelClose"
     />
 </template>
-
-<script>
+<script lang="ts">
 import { ref, onMounted, computed, watch } from "vue";
 import axios from "axios";
-import addPersonnel from "../components/Personnel.vue";
-import updatePersonnel from "../components/PersonnelUpdate.vue";
+import addPersonnel from "@components/Personnel.vue";
+import updatePersonnel from "@components/PersonnelUpdate.vue";
+
 export default {
     props: {},
     components: {
@@ -181,46 +186,44 @@ export default {
         const updatePersonnelVisible = ref(false);
         const showEditDialog = ref(false);
         const personnelFormRef = ref(null);
-
         const listQuery = ref({
             name: "",
             sort: "+id",
         });
-
         const pagination = ref({
             total: 0,
             page: 1,
             limit: 5,
         });
-
         const AddPersonnel = () => {
             personnelVisible.value = true;
         };
         const handleAddPersonnelClose = () => {
             personnelVisible.value = false;
         };
-
-        const UpdatePersonnel = (row) => {
-            updatePersonnelVisible.value = true;
-            form.value = row;
-            console.log(form);
+        const UpdatePersonnel = (row: {
+            id: string; 
+            name: string; 
+            password: string; 
+            email: string; 
+            role: string; 
+            birthday: null; }) => {
+                updatePersonnelVisible.value = true;
+                form.value = row;
+                console.log(form);
         };
-
         const handleUpdatePersonnelClose = () => {
             updatePersonnelVisible.value = false;
         };
-
-        const handlePageChange = (newPage) => {
-            pagination.page = newPage;
+        const handlePageChange = (newPage: number) => {
+            pagination.value.page = newPage;
             fetchPersonnel();
         };
-
         const fetchPersonnel = async () => {
             const url = "http://localhost:8080/api/getPersonnel";
             const requestData = {
                 name: listQuery.value.name.trim(),
             };
-
             try {
                 const response = await axios.post(url, requestData);
                 console.log(response.data);
@@ -230,25 +233,20 @@ export default {
                 console.error("Error fetching data:", error);
             }
         };
-
         const currentPage = computed(() => {
             const start = (pagination.value.page - 1) * pagination.value.limit;
             const end = start + pagination.value.limit;
             return tableData.value.slice(start, end);
         });
-
         const sortedList = computed(() => {
-            const clonedList = [...tableData.value]; // 複製列表
-
+            const clonedList: { id: number }[] = [...tableData.value]; // 複製列表
             if (listQuery.value.sort === "+id") {
                 return clonedList.sort((a, b) => a.id - b.id); // 升序
             } else if (listQuery.value.sort === "-id") {
                 return clonedList.sort((a, b) => b.id - a.id); // 降序
             }
-
             return clonedList; // 默認
         });
-
         // 監聽 listQuery.sort
         watch(
             () => listQuery.value.sort,
@@ -267,19 +265,16 @@ export default {
             role: "",
             birthday: null,
         });
-
         // 進網頁時自動刷新列表
         onMounted(() => {
             fetchPersonnel();
         });
-
         // 處理排序
         const handleSortChange = () => {
             // sortedList.value 拿到排序後的數據
             const sortedData = sortedList.value;
             console.log(sortedData);
         };
-
         return {
             value,
             input,
@@ -305,25 +300,21 @@ export default {
     },
 };
 </script>
-
 <style lang="scss" scoped>
 .app {
     display: flex;
 }
-
 .filter-container {
     display: flex;
     align-items: center;
     padding: 0 42px;
     padding-top: 42px;
 }
-
 .list-container {
     display: flex;
     align-items: center;
     padding: 26px;
 }
-
 .example-pagination-block + .example-pagination-block {
     margin-top: 10px;
 }

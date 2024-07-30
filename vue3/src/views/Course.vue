@@ -11,17 +11,16 @@
             <div class="filter-container">
                 <el-input
                     v-model="listQuery.courseTitle"
-                    placeholder="title"
+                    placeholder="課程名稱"
                     style="width: 180px; height: 65px"
                     class="filter-item"
                 />
-
                 <el-button
                     type="primary"
                     round
                     style="margin-left: 12px"
                     @click="fetchCourse"
-                    >Search</el-button
+                    >搜尋</el-button
                 >
                 <el-button
                     type="primary"
@@ -29,10 +28,9 @@
                     style="margin-left: 12px"
                     @click="AddCourse"
                 >
-                    AddCourse
+                    新增課程
                 </el-button>
             </div>
-
             <div class="list-container">
                 <el-table
                     :data="sortedList"
@@ -42,30 +40,32 @@
                     style="width: 100%"
                 >
                     <el-table-column
-                        label="Code"
+                        label="課程代號"
                         prop="courseCode"
                         :sortable="
                             listQuery.sort === '+id' || listQuery.sort === '-id'
                         "
                         align="center"
-                        width="80"
+                        width="120px"
                     >
                         <template #default="{ row }">
                             <span>{{ row.courseCode }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column
-                        label="Title"
+                        label="課程名稱"
                         prop="courseTitle"
-                        min-width="60px"
+                        align="center"
+                        min-width="100px"
                     >
                         <template #default="{ row }">
                             <span class="link-type">{{ row.courseTitle }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column
-                        label="Instructor"
+                        label="講師"
                         prop="courseInstructor"
+                        align="center"
                         min-width="80px"
                     >
                         <template #default="{ row }">
@@ -75,8 +75,9 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                        label="Description"
+                        label="描述"
                         prop="courseDescription"
+                        align="center"
                         min-width="100px"
                     >
                         <template #default="{ row }">
@@ -86,8 +87,9 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                        label="City"
+                        label="城市"
                         prop="classCity"
+                        align="center"
                         min-width="60px"
                     >
                         <template #default="{ row }">
@@ -95,8 +97,9 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                        label="Enable"
+                        label="狀態"
                         prop="classEnable"
+                        align="center"
                         min-width="60px"
                     >
                         <template #default="{ row }">
@@ -105,11 +108,10 @@
                             }}</span>
                         </template>
                     </el-table-column>
-
                     <el-table-column
-                        label="Operate"
+                        label="操作"
                         align="center"
-                        width="450"
+                        width="450px"
                         class-name="small-padding fixed-width"
                     >
                         <template #default="{ row }">
@@ -119,7 +121,6 @@
                                 @click="UpdateCourse(row)"
                                 >Revise</el-button
                             >
-
                             <el-button
                                 type="info"
                                 round
@@ -148,7 +149,6 @@
                     </span>
                 </el-dialog>
             </div>
-
             <div class="example-pagination-block">
                 <div class="example-demonstration"></div>
                 <el-pagination
@@ -158,7 +158,6 @@
                     @current-change="handlePageChange"
                 />
             </div>
-
             <el-dialog>
                 <el-form
                     ref="dataForm"
@@ -204,14 +203,33 @@
         @close="handleAddScheduleClose"
     />
 </template>
-
-<script>
+<script lang="ts">
 import { ref, onMounted, computed, watch } from "vue";
 import axios from "axios";
-import addCourse from "../components/Course.vue";
-import updateCourse from "../components/CourseUpdate.vue";
-import detailsCourse from "../components/CourseDetails.vue";
-import addSchedule from "../components/Schedule.vue";
+import addCourse from "@components/Course.vue";
+import updateCourse from "@components/CourseUpdate.vue";
+import detailsCourse from "@components/CourseDetails.vue";
+import addSchedule from "@components/Schedule.vue";
+
+interface Course {
+  courseCode: string;
+  courseTitle: string;
+  courseInstructor: string;
+  courseDescription: string;
+  courseWeek: never[];
+  courseDate: null;
+  courseEndDate: null;
+  classTime: null;
+  classEndTime: null;
+  classEnable: string;
+  classCity: string;
+  personnel: string;
+}
+
+interface Row {
+  courseList: Course[];
+}
+
 export default {
     props: {},
     components: {
@@ -230,57 +248,46 @@ export default {
         const detailsCourseVusuble = ref(false);
         const addScheduleVusble = ref(false);
         const showEditDialog = ref(false);
-
         const listQuery = ref({
             courseTitle: "",
             sort: "+id",
         });
-
         const pagination = ref({
             total: 0,
             page: 1,
             limit: 5,
         });
-
         const AddCourse = () => {
             courseVisible.value = true;
         };
         const handleAddCourseClose = () => {
             courseVisible.value = false;
         };
-
-        const UpdateCourse = (row) => {
+        const UpdateCourse = (row: Row) => {
             updateCourseVisible.value = true;
             form.value = row;
         };
-
         const handleUpdateCourseClose = () => {
             updateCourseVisible.value = false;
         };
-
-        const DetailsCourse = (row) => {
+        const DetailsCourse = (row: Row) => {
             detailsCourseVusuble.value = true;
             form.value = row;
         };
-
         const handleDetailsCourseClose = () => {
             detailsCourseVusuble.value = false;
         };
-
-        const AddSchedule = (row) => {
+        const AddSchedule = (row: Row) => {
             addScheduleVusble.value = true;
             form.value = row;
         };
-
         const handleAddScheduleClose = () => {
             addScheduleVusble.value = false;
         };
-
-        const handlePageChange = (newPage) => {
-            pagination.page = newPage;
+        const handlePageChange = (newPage: number) => {
+            pagination.value.page = newPage;
             fetchCourse();
         };
-
         const fetchCourse = async () => {
             const url = "http://localhost:8080/api/getCourse";
             const requestData = {
@@ -294,25 +301,20 @@ export default {
                 console.error("Error fetching data:", error);
             }
         };
-
         const currentPage = computed(() => {
             const start = (pagination.value.page - 1) * pagination.value.limit;
             const end = start + pagination.value.limit;
             return tableData.value.slice(start, end);
         });
-
         const sortedList = computed(() => {
-            const clonedList = [...tableData.value]; // 複製列表
-
+            const clonedList: { id: number }[] = [...tableData.value]; // 複製列表
             if (listQuery.value.sort === "+id") {
                 return clonedList.sort((a, b) => a.id - b.id); // 升序
             } else if (listQuery.value.sort === "-id") {
                 return clonedList.sort((a, b) => b.id - a.id); // 降序
             }
-
             return clonedList; // 默認
         });
-
         // 監聽 listQuery.sort
         watch(
             () => listQuery.value.sort,
@@ -341,19 +343,16 @@ export default {
                 },
             ],
         });
-
         // 進網頁時自動刷新列表
         onMounted(() => {
             fetchCourse();
         });
-
         // 處理排序
         const handleSortChange = () => {
             // sortedList.value 拿到排序後的數據
             const sortedData = sortedList.value;
             console.log(sortedData);
         };
-
         return {
             value,
             input,
@@ -384,25 +383,21 @@ export default {
     },
 };
 </script>
-
 <style lang="scss" scoped>
 .app {
     display: flex;
 }
-
 .filter-container {
     display: flex;
     align-items: center;
     padding: 0 42px;
     padding-top: 42px;
 }
-
 .list-container {
     display: flex;
     align-items: center;
     padding: 26px;
 }
-
 .example-pagination-block + .example-pagination-block {
     margin-top: 10px;
 }

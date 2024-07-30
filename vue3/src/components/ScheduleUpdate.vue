@@ -74,7 +74,7 @@
         </el-form-item>
     </el-dialog>
 </template>
-<script>
+<script lang="ts">
 import { ref } from "vue";
 import { useUserStore } from "../store/index";
 import axios from "axios";
@@ -92,9 +92,9 @@ export default {
             managementList: [
                 {
                     studentId: userStore.studentId,
-                    courseCode: props.obData.courseCode,
-                    courseOutline: props.obData.courseOutline,
-                    courseProject: props.obData.courseProject,
+                    courseCode: props.obData?.courseCode ?? "",
+                    courseOutline: props.obData?.courseOutline ?? "",
+                    courseProject: props.obData?.courseProject ?? "",
                     understand: "",
                     question: "",
                     solve: "",
@@ -107,7 +107,6 @@ export default {
             emit("submit", form.value);
             emit("close");
         };
-
         const personnelForm = () => {
             axios
                 .post("http://localhost:8080/management/update", form.value)
@@ -121,7 +120,6 @@ export default {
                     alert("回報失敗");
                 });
         };
-
         return {
             visibleRef,
             form,
@@ -132,4 +130,3 @@ export default {
     },
 };
 </script>
-<style lang=""></style>

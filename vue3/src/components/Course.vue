@@ -24,7 +24,6 @@
             prop="courseInstructor"
             style="display: flex; margin: 0 auto; padding: 8px; width: 70%"
         />
-
         <div style="display: flex; justify-content: center; margin: 6px">
             <el-checkbox
                 :checked="form.courseList[0].courseWeek.includes('Monday')"
@@ -62,7 +61,6 @@
                 border
             />
         </div>
-
         <div
             class="demo-date-picker"
             style="display: flex; justify-content: center; margin: 6px"
@@ -82,7 +80,6 @@
                 />
             </div>
         </div>
-
         <div
             class="demo-time-range"
             style="display: flex; justify-content: center; margin: 6px"
@@ -101,7 +98,6 @@
                 />
             </div>
         </div>
-
         <el-select
             v-model="form.courseList[0].classCity"
             class="m-2"
@@ -131,10 +127,10 @@
         </el-form-item>
     </el-dialog>
 </template>
-<script>
+<script lang="ts">
 import { ref } from "vue";
 import axios from "axios";
-import { useUserStore } from "../store/index";
+import { useUserStore } from "@store/index";
 
 export default {
     props: {
@@ -160,10 +156,8 @@ export default {
                 },
             ],
         });
-
-        const handleCheckboxChange = (day) => {
-            const weekArray = form.value.courseList[0].courseWeek;
-
+        const handleCheckboxChange = (day: string) => {
+            const weekArray: string[] = form.value.courseList[0].courseWeek;
             if (weekArray.includes(day)) {
                 // 如果數組中已經包含這個星期名稱就移除它
                 const index = weekArray.indexOf(day);
@@ -175,13 +169,11 @@ export default {
                 weekArray.push(day);
             }
         };
-
         const submitPersonnelForm = () => {
             emit("update:visible", false);
             emit("submit", form.value);
             emit("close");
         };
-
         const personnelForm = () => {
             axios
                 .post("http://localhost:8080/course/add", form.value)
@@ -195,7 +187,6 @@ export default {
                     console.log(form);
                 });
         };
-
         return {
             visibleRef,
             form,
@@ -207,4 +198,4 @@ export default {
     },
 };
 </script>
-<style lang="scss" scoped></style>
+

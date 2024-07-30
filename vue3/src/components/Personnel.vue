@@ -53,7 +53,7 @@
         </el-form-item>
     </el-dialog>
 </template>
-<script>
+<script lang="ts">
 import { ref } from "vue";
 import axios from "axios";
 
@@ -70,13 +70,11 @@ export default {
             role: "",
             birthday: "",
         });
-
         const submitPersonnelForm = () => {
             emit("update:visible", false);
             emit("submit", form.value);
             emit("close");
         };
-
         const personnelForm = () => {
             axios
                 .post("http://localhost:8080/personnel/add", form.value)
@@ -89,7 +87,6 @@ export default {
                     alert("新增失敗");
                 });
         };
-
         return {
             visibleRef,
             form,
@@ -99,4 +96,4 @@ export default {
     },
 };
 </script>
-<style lang=""></style>
+

@@ -31,7 +31,7 @@
         </el-form-item>
     </el-dialog>
 </template>
-<script>
+<script lang="ts">
 import { ref } from "vue";
 import axios from "axios";
 
@@ -42,23 +42,20 @@ export default {
     },
     setup(props, { emit }) {
         const visibleRef = ref(props.visible);
-
         const form = ref({
             student: {
-                studentId: props.obData.id,
-                name: props.obData.name,
-                email: props.obData.email,
-                birthday: props.obData.birthday,
+                studentId: props.obData?.id ?? '',
+                name: props.obData?.name ?? '',
+                email: props.obData?.email ?? '',
+                birthday: props.obData?.birthday ?? '',
             },
         });
-        console.log(props.obData.birthday);
-
+        console.log(props.obData?.birthday);
         const submitStudntForm = () => {
             emit("update:visible", false);
             emit("submit", form.value);
             emit("close");
         };
-
         const studentForm = () => {
             axios
                 .post("http://localhost:8080/student/update", form.value)
@@ -72,7 +69,6 @@ export default {
                     alert("修改失敗");
                 });
         };
-
         return {
             visibleRef,
             form,
@@ -82,4 +78,3 @@ export default {
     },
 };
 </script>
-<style lang=""></style>

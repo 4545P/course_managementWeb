@@ -44,7 +44,7 @@
         </el-form-item>
     </el-dialog>
 </template>
-<script>
+<script lang="ts">
 import { ref } from "vue";
 import axios from "axios";
 
@@ -58,7 +58,7 @@ export default {
         const form = ref({
             scheduleList: [
                 {
-                    courseCode: props.obData.courseCode,
+                    courseCode: props.obData?.courseCode ?? "",
                     courseDate: null,
                     courseOutline: "",
                     courseProject: "",
@@ -66,13 +66,11 @@ export default {
                 },
             ],
         });
-
         const submitStudntForm = () => {
             emit("update:visible", false);
             emit("submit", form.value);
             emit("close");
         };
-
         const studentForm = () => {
             axios
                 .post("http://localhost:8080/course/schedule", form.value)
@@ -85,7 +83,6 @@ export default {
                     alert("新增失敗");
                 });
         };
-
         return {
             visibleRef,
             form,
@@ -95,4 +92,3 @@ export default {
     },
 };
 </script>
-<style lang=""></style>

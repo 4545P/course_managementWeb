@@ -40,7 +40,6 @@
         <p>
             <span style="margin: 0 70%; white-space: nowrap">*課程大綱</span>
         </p>
-
         <div style="display: flex; justify-content: center; margin: 6px">
             <el-checkbox
                 :checked="form.courseList[0].courseWeek.includes('Monday')"
@@ -86,7 +85,6 @@
         <p>
             <span style="margin: 0 70%; white-space: nowrap">*上課星期</span>
         </p>
-
         <div
             class="demo-date-picker"
             style="display: flex; justify-content: center; margin: 6px"
@@ -111,7 +109,6 @@
         <p>
             <span style="margin: 0 70%; white-space: nowrap">*上課期間</span>
         </p>
-
         <div
             class="demo-time-range"
             style="display: flex; justify-content: center; margin: 6px"
@@ -168,10 +165,10 @@
         </el-form-item>
     </el-dialog>
 </template>
-<script>
+<script lang="ts">
 import { ref } from "vue";
 import axios from "axios";
-import { useUserStore } from "../store/index";
+import { useUserStore } from "@store/index";
 
 export default {
     props: {
@@ -184,32 +181,29 @@ export default {
         const form = ref({
             courseList: [
                 {
-                    courseCode: props.obData.courseCode,
-                    courseTitle: props.obData.courseTitle,
-                    courseInstructor: props.obData.courseInstructor,
-                    courseDescription: props.obData.courseDescription,
-                    courseWeek: props.obData.courseWeek,
-                    courseDate: props.obData.courseDate,
-                    courseEndDate: props.obData.courseEndDate,
-                    classTime: props.obData.classTime,
-                    classEndTime: props.obData.classEndTime,
-                    classCity: props.obData.classCity,
+                    courseCode: props.obData?.courseCode ?? '',
+                    courseTitle: props.obData?.courseTitle ?? '',
+                    courseInstructor: props.obData?.courseInstructor ?? '',
+                    courseDescription: props.obData?.courseDescription ?? '',
+                    courseWeek: props.obData?.courseWeek ?? '',
+                    courseDate: props.obData?.courseDate ?? '',
+                    courseEndDate: props.obData?.courseEndDate ?? '',
+                    classTime: props.obData?.classTime ?? '',
+                    classEndTime: props.obData?.classEndTime ?? '',
+                    classCity: props.obData?.classCity ?? '',
                     personnel: userStore.name,
                 },
             ],
         });
-
         const code = ref({
             studentId: userStore.studentId,
-            courseCode: props.obData.courseCode,
+            courseCode: props.obData?.courseCode ?? '',
         });
-
         const submitPersonnelForm = () => {
             emit("update:visible", false);
             emit("submit", form.value);
             emit("close");
         };
-
         const personnelForm = () => {
             axios
                 .post("http://localhost:8080/course/selection", code.value)
@@ -224,7 +218,6 @@ export default {
                     console.log(form);
                 });
         };
-
         return {
             visibleRef,
             form,
@@ -236,4 +229,4 @@ export default {
     },
 };
 </script>
-<style lang="scss" scoped></style>
+

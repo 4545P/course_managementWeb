@@ -12,25 +12,29 @@
         </form>
     </div>
 </template>
-
-<script>
+<script lang="ts">
 import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
+interface Data {
+            name: string;
+            email: string;
+            role: string;
+            enable: boolean;
+            id?: string;
+            studentId?: string;
+        }
 export default {
     setup() {
         const name = ref("admin");
         const password = ref("admin");
-
         const router = useRouter();
-        const login = async (event) => {
+        const login = async (event: { preventDefault: () => void; }) => {
             event.preventDefault();
-
             try {
-                const { useUserStore } = await import("../store/index");
+                const { useUserStore } = await import("@store/index");
                 const userStore = useUserStore();
-
                 const response = await axios.post(
                     "http://localhost:8080/login",
                     {
@@ -38,36 +42,10 @@ export default {
                         password: password.value,
                     }
                 );
-
                 if (response.status === 200) {
-                    const userInfo = {
-                        name: response.data.name,
-                        email: response.data.email,
-                        role: response.data.role,
-                        enable: response.data.enable,
-                    };
-                    if (userInfo.role === "admin" || userInfo.role === "user") {
-                        userInfo.id = response.data.id;
-                    } else {
-                        userInfo.studentId = response.data.id;
-                    }
+                    const userInfo = extractUserInfo(response.data);
                     userStore.login(userInfo);
-                    if (userInfo.role === "admin" || userInfo.role === "user") {
-                        if (userInfo.enable === false) {
-                            router.push("/verify");
-                        } else {
-                            router.push("/common-home");
-                        }
-                    } else if (userInfo.role === "student") {
-                        if (userInfo.enable === false) {
-                            router.push("/verify");
-                        } else {
-                            router.push("/student-home");
-                        }
-                    } else {
-                        console.error("無效的角色");
-                        alert("帳密錯誤");
-                    }
+                    navigateUser(userInfo);
                 } else {
                     console.error("登入請求失敗");
                 }
@@ -75,7 +53,39 @@ export default {
                 console.error("登入請求出錯", error);
             }
         };
-
+        const extractUserInfo = (data: Data) => {
+            const userInfo: Data = {
+                name: data.name,
+                email: data.email,
+                role: data.role,
+                enable: data.enable,
+                id: data.id,
+            };
+            if (userInfo.role === "admin" || userInfo.role === "user") {
+                userInfo.id = data.id;
+            } else {
+                userInfo.studentId = data.id;
+            }
+            return userInfo;
+        };  
+        const navigateUser = (userInfo: Data) => {
+            if (userInfo.role === "admin" || userInfo.role === "user") {
+                if (userInfo.enable === false) {
+                    router.push("/verify");
+                } else {
+                    router.push("/common-home");
+                }
+            } else if (userInfo.role === "student") {
+                if (userInfo.enable === false) {
+                    router.push("/verify");
+                } else {
+                    router.push("/student-home");
+                }
+            } else {
+                console.error("無效的角色");
+                alert("帳密錯誤");
+            }
+        };
         return {
             name,
             password,
@@ -85,7 +95,6 @@ export default {
     },
 };
 </script>
-
 <style lang="scss">
 *,
 *::after,
@@ -94,7 +103,6 @@ export default {
     padding: 0;
     box-sizing: border-box;
 }
-
 .body {
     display: flex;
     width: 100%;
@@ -103,7 +111,6 @@ export default {
     justify-content: center;
     background-color: #999;
 }
-
 .login {
     background-color: #777;
     width: 400px;
@@ -111,7 +118,6 @@ export default {
     padding: 40px;
     box-shadow: 10px 10px 25px #000;
 }
-
 input {
     display: block;
     margin: 20px auto;
@@ -123,30 +129,25 @@ input {
     outline: none;
     color: aliceblue;
 }
-
 .text,
 .password {
     border: 2px solid #3498db;
     width: 220px;
 }
-
 .text:focus,
 .password:focus {
     border-color: #2ecc71;
     width: 280px;
     transition: 0.5s;
 }
-
 .checkbox {
     margin: 0 0;
 }
-
 .submit {
     width: 150px;
     border: 2px solid #2ecc71;
     cursor: pointer;
 }
-
 .submit:hover {
     background-color: #2ecc71;
     transition: 0.5s;

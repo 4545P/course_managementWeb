@@ -47,7 +47,7 @@
         </el-form-item>
     </el-dialog>
 </template>
-<script>
+<script lang="ts">
 import { ref, watch } from "vue";
 import axios from "axios";
 
@@ -61,20 +61,18 @@ export default {
         const visibleRef = ref(props.visible);
         const form = ref({
             personnel: {
-                id: props.obData.id,
-                name: props.obData.name,
-                email: props.obData.email,
-                role: props.obData.role,
-                birthday: props.obData.birthday,
+                id: props.obData?.id ?? "",
+                name: props.obData?.name ?? "",
+                email: props.obData?.email ?? "",
+                role: props.obData?.role ?? "",
+                birthday: props.obData?.birthday ?? "",
             },
         });
-
         const submitPersonnelForm = () => {
             emit("update:visible", false);
             emit("submit", form.value);
             emit("close");
         };
-
         const personnelForm = () => {
             axios
                 .post("http://localhost:8080/personnel/update", form.value)
@@ -88,7 +86,6 @@ export default {
                     alert("更新失敗");
                 });
         };
-
         return {
             visibleRef,
             form,
@@ -98,4 +95,3 @@ export default {
     },
 };
 </script>
-<style lang=""></style>

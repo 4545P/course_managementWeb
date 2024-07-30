@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Personnel from "../views/Personnel.vue";
-import Student from "../views/Student.vue";
-import Course from "../views/Course.vue";
-import Schedule from "../views/Schedule.vue";
-import Login from "../views/Login.vue";
-import Verify from "../views/Verify.vue";
+import Personnel from "@views/Personnel.vue";
+import Student from "@views/Student.vue";
+import Course from "@views/Course.vue";
+import Schedule from "@views/Schedule.vue";
+import Login from "@views/Login.vue";
+import Verify from "@views/Verify.vue";
 import { useUserStore } from "../store/index";
 
 const router = createRouter({
@@ -57,7 +57,7 @@ const router = createRouter({
 //     const userStore = useUserStore(); // 使用您的 Pinia store 实例
 
 //     // 检查用户是否已登录
-//     const role = userStore.userRole;
+//     const role = userStore.role;
 
 //     if (requiresAuth && !role) {
 //         // 如果需要登录但用户未登录，重定向到登录页面
