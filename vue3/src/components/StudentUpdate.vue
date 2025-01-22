@@ -1,12 +1,12 @@
 <template lang="">
-    <el-dialog v-model="submitStudntForm" title="修改學員" width="70%">
-        <el-input
+    <El-dialog v-model="submitStudentForm" title="修改學員" width="70%">
+        <El-input
             v-model="form.student.name"
             placeholder="帳號"
             prop="name"
             style="display: flex; margin: 0 auto; padding: 8px; width: 70%"
         />
-        <el-input
+        <El-input
             v-model="form.student.email"
             placeholder="Email"
             prop="email"
@@ -20,16 +20,16 @@
             prop="birthday"
             style="display: flex; margin: 0 auto"
         />
-        <el-form-item>
-            <el-button
+        <El-form-item>
+            <El-button
                 type="primary"
                 native-type="submit"
                 style="display: flex; margin: 0 80%"
                 @click="studentForm"
-                >提交</el-button
+                >提交</El-button
             >
-        </el-form-item>
-    </el-dialog>
+        </El-form-item>
+    </El-dialog>
 </template>
 <script lang="ts">
 import { ref } from "vue";
@@ -51,7 +51,7 @@ export default {
             },
         });
         console.log(props.obData?.birthday);
-        const submitStudntForm = () => {
+        const submitStudentForm = () => {
             emit("update:visible", false);
             emit("submit", form.value);
             emit("close");
@@ -72,7 +72,7 @@ export default {
         return {
             visibleRef,
             form,
-            submitStudntForm,
+            submitStudentForm,
             studentForm,
         };
     },

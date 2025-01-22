@@ -11,7 +11,7 @@
         "@element-plus/icons-vue": "^2.1.0",
         "ajax": "^0.0.4",
         "axios": "^1.4.0",
-        "element-plus": "^2.3.9",
+        "element-plus": "^2.9.3",
         "pinia": "^2.1.6",
         "sacc": "^0.0.1",
         "vue": "^3.3.4",

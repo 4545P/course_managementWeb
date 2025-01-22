@@ -1,6 +1,6 @@
 <template lang="">
-    <el-dialog v-model="submitPersonnelForm" title="查看課程詳情" width="70%">
-        <el-input
+    <El-dialog v-model="submitPersonnelForm" title="查看課程詳情" width="70%">
+        <El-input
             v-model="form.courseList[0].courseCode"
             disabled
             placeholder="課程代碼"
@@ -10,7 +10,7 @@
         <p>
             <span style="margin: 0 70%; white-space: nowrap">*課程代碼</span>
         </p>
-        <el-input
+        <El-input
             v-model="form.courseList[0].courseTitle"
             disabled
             placeholder="課程名稱"
@@ -20,7 +20,7 @@
         <p>
             <span style="margin: 0 70%; white-space: nowrap">*課程名稱</span>
         </p>
-        <el-input
+        <El-input
             v-model="form.courseList[0].courseInstructor"
             disabled
             placeholder="課程講師"
@@ -30,7 +30,7 @@
         <p>
             <span style="margin: 0 70%; white-space: nowrap">*課程講師</span>
         </p>
-        <el-input
+        <El-input
             v-model="form.courseList[0].courseDescription"
             disabled
             placeholder="課程大綱"
@@ -132,7 +132,7 @@
         <p>
             <span style="margin: 0 70%; white-space: nowrap">*上課時間</span>
         </p>
-        <el-select
+        <El-select
             disabled
             v-model="form.courseList[0].classCity"
             class="m-2"
@@ -150,20 +150,20 @@
             <el-option label="台中" value="台中"></el-option>
             <el-option label="台南" value="台南"></el-option>
             <el-option label="高雄" value="高雄"></el-option>
-        </el-select>
+        </El-select>
         <p>
             <span style="margin: 0 70%; white-space: nowrap">*上課地點</span>
         </p>
-        <el-form-item>
-            <el-button
+        <El-form-item>
+            <El-button
                 type="primary"
                 native-type="submit"
                 style="display: flex; margin: 0 80%"
                 @click="personnelForm"
-                >選課</el-button
+                >選課</El-button
             >
-        </el-form-item>
-    </el-dialog>
+        </El-form-item>
+    </El-dialog>
 </template>
 <script lang="ts">
 import { ref } from "vue";

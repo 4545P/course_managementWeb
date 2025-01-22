@@ -10,14 +10,14 @@
         <div class="app-container" style="width: 70vw; margin: 0 auto">
             <div style="margin: 30px"></div>
             <div class="list-container">
-                <el-table
+                <El-table
                     :data="tableData"
                     border
                     fit
                     highlight-current-row
                     style="width: 100%"
                 >
-                    <el-table-column
+                    <El-table-column
                         label="課程代號"
                         prop="courseCode"
                         align="center"
@@ -26,8 +26,8 @@
                         <template #default="{ row }">
                             <span class="link-type">{{ row.courseCode }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="課程大綱"
                         prop="courseOutline"
                         align="center"
@@ -38,8 +38,8 @@
                                 row.courseOutline
                             }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="課堂"
                         prop="courseProject"
                         align="center"
@@ -50,8 +50,8 @@
                                 row.courseProject
                             }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="是否理解"
                         prop="understand"
                         align="center"
@@ -62,8 +62,8 @@
                                 row.understand ? "理解" : "尚未理解"
                             }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="問題"
                         prop="question"
                         align="center"
@@ -72,8 +72,8 @@
                         <template #default="{ row }">
                             <span class="link-type">{{ row.question }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="是否解決"
                         prop="solve"
                         align="center"
@@ -84,24 +84,24 @@
                                 row.solve ? "解決" : "尚未解決"
                             }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="回覆"
                         align="center"
                         width="150px"
                         class-name="small-padding fixed-width"
                     >
                         <template #default="{ row }">
-                            <el-button
+                            <El-button
                                 type="primary"
                                 round
                                 @click="UpdateSchedule(row)"
-                                >Return</el-button
+                                >Return</El-button
                             >
                         </template>
-                    </el-table-column>
-                </el-table>
-                <el-dialog title="Chart" width="70%">
+                    </El-table-column>
+                </El-table>
+                <El-dialog title="Chart" width="70%">
                     <div class="chart-container">
                         <div
                             id="pieChart"
@@ -109,9 +109,9 @@
                         ></div>
                     </div>
                     <span class="dialog-footer">
-                        <el-button>Close</el-button>
+                        <El-button>Close</El-button>
                     </span>
-                </el-dialog>
+                </El-dialog>
             </div>
             <div class="example-pagination-block">
                 <div class="example-demonstration"></div>
@@ -122,8 +122,8 @@
                     @current-change="handlePageChange"
                 />
             </div>
-            <el-dialog>
-                <el-form
+            <El-dialog>
+                <El-form
                     ref="dataForm"
                     :rules="rules"
                     :model="listQuery"
@@ -131,20 +131,20 @@
                     label-width="70px"
                     style="width: 400px; margin-left: 50px"
                 >
-                    <el-form-item label="Type" prop="type">
-                        <el-select
+                    <El-form-item label="Type" prop="type">
+                        <El-select
                             v-model="listQuery.type"
                             class="filter-item"
                             placeholder="Please select"
                         >
-                        </el-select>
-                    </el-form-item>
-                </el-form>
+                        </El-select>
+                    </El-form-item>
+                </El-form>
                 <div class="dialog-footer">
-                    <el-button> Cancel </el-button>
-                    <el-button type="primary"> Confirm </el-button>
+                    <El-button> Cancel </El-button>
+                    <El-button type="primary"> Confirm </El-button>
                 </div>
-            </el-dialog>
+            </El-dialog>
         </div>
     </div>
     <updateSchedule

@@ -1,24 +1,24 @@
 <template lang="">
-    <el-dialog v-model="submitPersonnelForm" title="新增課程" width="70%">
-        <el-input
+    <El-dialog v-model="submitPersonnelForm" title="新增課程" width="70%">
+        <El-input
             v-model="form.courseList[0].courseCode"
             placeholder="課程代碼"
             prop="courseCode"
             style="display: flex; margin: 0 auto; padding: 8px; width: 70%"
         />
-        <el-input
+        <El-input
             v-model="form.courseList[0].courseTitle"
             placeholder="課程名稱"
             prop="courseTitle"
             style="display: flex; margin: 0 auto; padding: 8px; width: 70%"
         />
-        <el-input
+        <El-input
             v-model="form.courseList[0].courseInstructor"
             placeholder="課程講師"
             prop="courseInstructor"
             style="display: flex; margin: 0 auto; padding: 8px; width: 70%"
         />
-        <el-input
+        <El-input
             v-model="form.courseList[0].courseDescription"
             placeholder="課程大綱"
             prop="courseInstructor"
@@ -98,7 +98,7 @@
                 />
             </div>
         </div>
-        <el-select
+        <El-select
             v-model="form.courseList[0].classCity"
             class="m-2"
             placeholder="上課地點"
@@ -115,17 +115,17 @@
             <el-option label="台中" value="台中"></el-option>
             <el-option label="台南" value="台南"></el-option>
             <el-option label="高雄" value="高雄"></el-option>
-        </el-select>
-        <el-form-item>
-            <el-button
+        </El-select>
+        <El-form-item>
+            <El-button
                 type="primary"
                 native-type="submit"
                 style="display: flex; margin: 0 80%"
                 @click="personnelForm"
-                >提交</el-button
+                >提交</El-button
             >
-        </el-form-item>
-    </el-dialog>
+        </El-form-item>
+    </El-dialog>
 </template>
 <script lang="ts">
 import { ref } from "vue";

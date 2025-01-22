@@ -1,24 +1,24 @@
 <template lang="">
-    <el-dialog v-model="submitPersonnelForm" title="新增教師人員" width="70%">
-        <el-input
+    <El-dialog v-model="submitPersonnelForm" title="新增教師人員" width="70%">
+        <El-input
             v-model="form.name"
             placeholder="帳號"
             prop="name"
             style="display: flex; margin: 0 auto; padding: 8px; width: 70%"
         />
-        <el-input
+        <El-input
             v-model="form.password"
             placeholder="密碼"
             prop="password"
             style="display: flex; margin: 0 auto; padding: 8px; width: 70%"
         />
-        <el-input
+        <El-input
             v-model="form.email"
             placeholder="Email"
             prop="email"
             style="display: flex; margin: 0 auto; padding: 8px; width: 70%"
         />
-        <el-select
+        <El-select
             v-model="form.role"
             class="m-2"
             placeholder="權限"
@@ -33,7 +33,7 @@
         >
             <el-option label="超級管理員" value="admin"></el-option>
             <el-option label="一般教職員" value="user"></el-option>
-        </el-select>
+        </El-select>
         <el-date-picker
             v-model="form.birthday"
             type="date"
@@ -42,16 +42,16 @@
             prop="birthday"
             style="display: flex; margin: 0 auto"
         />
-        <el-form-item>
-            <el-button
+        <El-form-item>
+            <El-button
                 type="primary"
                 native-type="submit"
                 style="display: flex; margin: 0 80%"
                 @click="personnelForm"
-                >提交</el-button
+                >提交</El-button
             >
-        </el-form-item>
-    </el-dialog>
+        </El-form-item>
+    </El-dialog>
 </template>
 <script lang="ts">
 import { ref } from "vue";

@@ -9,37 +9,37 @@
         </h1>
         <div class="app-container" style="width: 70vw; margin: 0 auto">
             <div class="filter-container">
-                <el-input
+                <El-input
                     v-model="listQuery.courseTitle"
                     placeholder="課程名稱"
                     style="width: 180px; height: 65px"
                     class="filter-item"
                 />
-                <el-button
+                <El-button
                     type="primary"
                     round
                     style="margin-left: 12px"
                     @click="fetchCourse"
-                    >搜尋</el-button
+                    >搜尋</El-button
                 >
-                <el-button
+                <El-button
                     type="primary"
                     round
                     style="margin-left: 12px"
                     @click="AddCourse"
                 >
                     新增課程
-                </el-button>
+                </El-button>
             </div>
             <div class="list-container">
-                <el-table
+                <El-table
                     :data="sortedList"
                     border
                     fit
                     highlight-current-row
                     style="width: 100%"
                 >
-                    <el-table-column
+                    <El-table-column
                         label="課程代號"
                         prop="courseCode"
                         :sortable="
@@ -51,8 +51,8 @@
                         <template #default="{ row }">
                             <span>{{ row.courseCode }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="課程名稱"
                         prop="courseTitle"
                         align="center"
@@ -61,8 +61,8 @@
                         <template #default="{ row }">
                             <span class="link-type">{{ row.courseTitle }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="講師"
                         prop="courseInstructor"
                         align="center"
@@ -73,8 +73,8 @@
                                 row.courseInstructor
                             }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="描述"
                         prop="courseDescription"
                         align="center"
@@ -85,8 +85,8 @@
                                 row.courseDescription
                             }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="城市"
                         prop="classCity"
                         align="center"
@@ -95,8 +95,8 @@
                         <template #default="{ row }">
                             <span class="link-type">{{ row.classCity }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="狀態"
                         prop="classEnable"
                         align="center"
@@ -107,37 +107,37 @@
                                 row.enable ? "開課中" : "未開課"
                             }}</span>
                         </template>
-                    </el-table-column>
-                    <el-table-column
+                    </El-table-column>
+                    <El-table-column
                         label="操作"
                         align="center"
                         width="450px"
                         class-name="small-padding fixed-width"
                     >
                         <template #default="{ row }">
-                            <el-button
+                            <El-button
                                 type="primary"
                                 round
                                 @click="UpdateCourse(row)"
-                                >Revise</el-button
+                                >修改</El-button
                             >
-                            <el-button
+                            <El-button
                                 type="info"
                                 round
                                 @click="DetailsCourse(row)"
-                                >Details</el-button
+                                >Details</El-button
                             >
-                            <el-button
+                            <El-button
                                 type="success"
                                 round
                                 @click="AddSchedule(row)"
-                                >AddSchedule</el-button
+                                >AddSchedule</El-button
                             >
-                            <el-button type="danger" round>Delete</el-button>
+                            <El-button type="danger" round>刪除</El-button>
                         </template>
-                    </el-table-column>
-                </el-table>
-                <el-dialog title="Chart" width="70%">
+                    </El-table-column>
+                </El-table>
+                <El-dialog title="Chart" width="70%">
                     <div class="chart-container">
                         <div
                             id="pieChart"
@@ -145,9 +145,9 @@
                         ></div>
                     </div>
                     <span class="dialog-footer">
-                        <el-button>Close</el-button>
+                        <El-button>Close</El-button>
                     </span>
-                </el-dialog>
+                </El-dialog>
             </div>
             <div class="example-pagination-block">
                 <div class="example-demonstration"></div>
@@ -158,8 +158,8 @@
                     @current-change="handlePageChange"
                 />
             </div>
-            <el-dialog>
-                <el-form
+            <El-dialog>
+                <El-form
                     ref="dataForm"
                     :rules="rules"
                     :model="listQuery"
@@ -167,20 +167,20 @@
                     label-width="70px"
                     style="width: 400px; margin-left: 50px"
                 >
-                    <el-form-item label="Type" prop="type">
-                        <el-select
+                    <El-form-item label="Type" prop="type">
+                        <El-select
                             v-model="listQuery.type"
                             class="filter-item"
                             placeholder="Please select"
                         >
-                        </el-select>
-                    </el-form-item>
-                </el-form>
+                        </El-select>
+                    </El-form-item>
+                </El-form>
                 <div class="dialog-footer">
-                    <el-button> Cancel </el-button>
-                    <el-button type="primary"> Confirm </el-button>
+                    <El-button> Cancel </El-button>
+                    <El-button type="primary"> Confirm </El-button>
                 </div>
-            </el-dialog>
+            </El-dialog>
         </div>
     </div>
     <addCourse v-if="courseVisible" @close="handleAddCourseClose" />

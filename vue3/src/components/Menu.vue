@@ -3,9 +3,9 @@
         <el-col>
             <h5 class="mb-2"></h5>
             <div class="vertical-menu">
-                <el-menu
+                <El-menu
                     default-active="2"
-                    class="el-menu-vertical-demo"
+                    class="El-menu-vertical-demo"
                     @open="handleOpen"
                     @close="handleClose"
                 >
@@ -15,22 +15,22 @@
                             <span>Menu</span>
                         </template>
                         <router-link to="/common-home" class="menu-link">
-                            <el-menu-item index="1-1">人員列表</el-menu-item>
+                            <El-menu-item index="1-1">人員列表</El-menu-item>
                         </router-link>
                         <router-link to="/common-student" class="menu-link">
-                            <el-menu-item index="1-2">學生列表</el-menu-item>
+                            <El-menu-item index="1-2">學生列表</El-menu-item>
                         </router-link>
                         <router-link to="/student-home" class="menu-link">
-                            <el-menu-item index="1-3">課程列表</el-menu-item>
+                            <El-menu-item index="1-3">課程列表</El-menu-item>
                         </router-link>
                         <router-link to="/course-schedule" class="menu-link">
-                            <el-menu-item index="1-4">我的課程</el-menu-item>
+                            <El-menu-item index="1-4">我的課程</El-menu-item>
                         </router-link>
-                        <el-menu-item @click="logout" index="1-5"
-                            >登出</el-menu-item
+                        <El-menu-item @click="logout" index="1-5"
+                            >登出</El-menu-item
                         >
                     </el-sub-menu>
-                </el-menu>
+                </El-menu>
             </div>
         </el-col>
     </el-row>
